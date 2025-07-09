@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime/pprof"
+	_ "net/http/pprof" // for pprof server
 	"time"
 
 	ethmetricsexp "github.com/ethereum/go-ethereum/metrics/exp"
@@ -213,6 +214,7 @@ which accepts a path for the resulting pprof file.
 
 	// add support for all CometBFT-specific command line options
 	tcmd.AddNodeFlags(cmd)
+	cmd.Flags().String("pprof-addr", "", "The address to listen on for pprof profiling (e.g., \"localhost:6060\")")
 	return cmd
 }
 
@@ -291,6 +293,13 @@ func startInProcess(svrCtx *server.Context, clientCtx client.Context, opts Start
 	home := cfg.RootDir
 	logger := svrCtx.Logger
 	g, ctx := getCtx(svrCtx, true)
+
+	if pprofAddr := svrCtx.Viper.GetString("pprof-addr"); pprofAddr != "" {
+		logger.Info("starting pprof server", "addr", pprofAddr)
+		g.Go(func() error {
+			return http.ListenAndServe(pprofAddr, nil)
+		})
+	}
 
 	if cpuProfile := svrCtx.Viper.GetString(srvflags.CPUProfile); cpuProfile != "" {
 		fp, err := ethdebug.ExpandHome(cpuProfile)
