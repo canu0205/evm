@@ -273,7 +273,7 @@ replace (
 	github.com/cosmos/evm => ../
 	github.com/cosmos/evm/evmd => ./evmd
 	// use custom geth fork with evmone interpreter
-	github.com/ethereum/go-ethereum => github.com/canu0205/go-ethereum v1.15.11-cosmos-0
+	github.com/ethereum/go-ethereum => github.com/canu0205/go-ethereum v1.15.11-poc-evm1-0
 	// Security Advisory https://github.com/advisories/GHSA-h395-qcrw-5vmq
 	github.com/gin-gonic/gin => github.com/gin-gonic/gin v1.9.1
 	// replace broken goleveldb
