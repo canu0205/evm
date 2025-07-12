@@ -505,6 +505,8 @@ func NewExampleApp(
 
 	// Set up EVM keeper
 	tracer := cast.ToString(appOpts.Get(srvflags.EVMTracer))
+	useEVM1 := cast.ToBool(appOpts.Get(srvflags.EVMUseEVM1))
+	evm1Config := cast.ToString(appOpts.Get(srvflags.EVMEVM1Config))
 
 	// NOTE: it's required to set up the EVM keeper before the ERC-20 keeper, because it is used in its instantiation.
 	app.EVMKeeper = evmkeeper.NewKeeper(
@@ -517,6 +519,8 @@ func NewExampleApp(
 		app.FeeMarketKeeper,
 		&app.Erc20Keeper,
 		tracer,
+		useEVM1,
+		evm1Config,
 	)
 
 	app.Erc20Keeper = erc20keeper.NewKeeper(

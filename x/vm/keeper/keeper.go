@@ -60,6 +60,10 @@ type Keeper struct {
 	// Tracer used to collect execution traces from the EVM transaction execution
 	tracer string
 
+	// EVM configuration options
+	useEVM1    bool
+	evm1Config string
+
 	hooks types.EvmHooks
 	// EVM Hooks for tx post-processing
 
@@ -80,6 +84,8 @@ func NewKeeper(
 	fmk types.FeeMarketKeeper,
 	erc20Keeper types.Erc20Keeper,
 	tracer string,
+	useEVM1 bool,
+	evm1Config string,
 ) *Keeper {
 	// ensure evm module account is set
 	if addr := ak.GetModuleAddress(types.ModuleName); addr == nil {
@@ -106,6 +112,8 @@ func NewKeeper(
 		transientKey:     transientKey,
 		tracer:           tracer,
 		erc20Keeper:      erc20Keeper,
+		useEVM1:          useEVM1,
+		evm1Config:       evm1Config,
 	}
 }
 

@@ -65,6 +65,8 @@ const (
 	EVMMaxTxGasWanted          = "evm.max-tx-gas-wanted"
 	EVMEnablePreimageRecording = "evm.cache-preimage"
 	EVMChainID                 = "evm.evm-chain-id"
+	EVMUseEVM1                 = "evm.use-evm1"
+	EVMEVM1Config              = "evm.evm1-config"
 )
 
 // TLS flags

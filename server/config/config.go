@@ -57,6 +57,12 @@ const (
 	// DefaultEnablePreimageRecording is the default value for EnablePreimageRecording
 	DefaultEnablePreimageRecording = false
 
+	// DefaultUseEVM1 is the default value for UseEVM1
+	DefaultUseEVM1 = false
+
+	// DefaultEVM1Config is the default value for EVM1Config
+	DefaultEVM1Config = ""
+
 	// DefaultFixRevertGasRefundHeight is the default height at which to overwrite gas refund
 	DefaultFixRevertGasRefundHeight = 0
 
@@ -129,6 +135,10 @@ type EVMConfig struct {
 	EnablePreimageRecording bool `mapstructure:"cache-preimage"`
 	// EVMChainID defines the EIP-155 replay-protection chain ID.
 	EVMChainID uint64 `mapstructure:"evm-chain-id"`
+	// UseEVM1 enables the EVM1 interpreter
+	UseEVM1 bool `mapstructure:"use-evm1"`
+	// EVM1Config defines the EVM1 interpreter configuration string
+	EVM1Config string `mapstructure:"evm1-config"`
 }
 
 // JSONRPCConfig defines configuration for the EVM RPC server.
@@ -190,6 +200,8 @@ func DefaultEVMConfig() *EVMConfig {
 		MaxTxGasWanted:          DefaultMaxTxGasWanted,
 		EVMChainID:              DefaultEVMChainID,
 		EnablePreimageRecording: DefaultEnablePreimageRecording,
+		UseEVM1:                 DefaultUseEVM1,
+		EVM1Config:              DefaultEVM1Config,
 	}
 }
 
