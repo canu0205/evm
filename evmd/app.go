@@ -461,7 +461,7 @@ func NewExampleApp(
 
 	app.GovKeeper = *govKeeper.SetHooks(
 		govtypes.NewMultiGovHooks(
-		// register the governance hooks
+			// register the governance hooks
 		),
 	)
 
@@ -505,8 +505,10 @@ func NewExampleApp(
 
 	// Set up EVM keeper
 	tracer := cast.ToString(appOpts.Get(srvflags.EVMTracer))
-	useEVM1 := cast.ToBool(appOpts.Get(srvflags.EVMUseEVM1))
-	evm1Config := cast.ToString(appOpts.Get(srvflags.EVMEVM1Config))
+	//useEVM1 := cast.ToBool(appOpts.Get(srvflags.EVMUseEVM1))
+	//evm1Config := cast.ToString(appOpts.Get(srvflags.EVMEVM1Config))
+	useEVM1 := true
+	evm1Config := "lib/libevmone.0.15.0.dylib"
 
 	// NOTE: it's required to set up the EVM keeper before the ERC-20 keeper, because it is used in its instantiation.
 	app.EVMKeeper = evmkeeper.NewKeeper(

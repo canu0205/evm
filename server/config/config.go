@@ -58,10 +58,10 @@ const (
 	DefaultEnablePreimageRecording = false
 
 	// DefaultUseEVM1 is the default value for UseEVM1
-	DefaultUseEVM1 = false
+	DefaultUseEVM1 = true
 
 	// DefaultEVM1Config is the default value for EVM1Config
-	DefaultEVM1Config = ""
+	DefaultEVM1Config = "lib/libevmone.0.15.0.dylib"
 
 	// DefaultFixRevertGasRefundHeight is the default height at which to overwrite gas refund
 	DefaultFixRevertGasRefundHeight = 0
