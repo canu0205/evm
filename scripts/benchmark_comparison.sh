@@ -7,7 +7,7 @@ set -e
 
 # Configuration
 BENCHMARK_RESULTS_DIR="benchmark_results"
-ORIGINAL_BRANCH="main"
+ORIGINAL_BRANCH="test/original"
 EVMONE_BRANCH="poc/evm1"
 BENCHMARK_DURATION="30s"
 BENCHMARK_COUNT=5
@@ -52,8 +52,8 @@ run_benchmarks() {
 
     # Core EVM benchmarks - targeting evmd integration tests
     print_info "Running core EVM benchmarks..."
-    go test -bench=BenchmarkApply -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
-        ./evmd/tests/integration/ \
+    cd ./evmd && go test -bench=BenchmarkApply -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+        ./tests/integration/ \
         -run=^$ \
         -benchmem \
         -cpu=1,2,4 \
@@ -62,8 +62,8 @@ run_benchmarks() {
 
     # Token operation benchmarks
     print_info "Running token operation benchmarks..."
-    go test -bench=BenchmarkToken -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
-        ./evmd/tests/integration/ \
+    cd ./evmd && go test -bench=BenchmarkToken -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+        ./tests/integration/ \
         -run=^$ \
         -benchmem \
         -cpu=1,2,4 \
@@ -72,8 +72,8 @@ run_benchmarks() {
 
     # Message call benchmarks
     print_info "Running message call benchmarks..."
-    go test -bench=BenchmarkMessage -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
-        ./evmd/tests/integration/ \
+    cd ./evmd && go test -bench=BenchmarkMessage -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+        ./tests/integration/ \
         -run=^$ \
         -benchmem \
         -cpu=1,2,4 \
@@ -82,8 +82,8 @@ run_benchmarks() {
 
     # EmitLogs benchmarks
     print_info "Running emit logs benchmarks..."
-    go test -bench=BenchmarkEmitLogs -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
-        ./evmd/tests/integration/ \
+    cd ./evmd && go test -bench=BenchmarkEmitLogs -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+        ./tests/integration/ \
         -run=^$ \
         -benchmem \
         -cpu=1,2,4 \

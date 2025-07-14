@@ -6,9 +6,9 @@ import (
 	"github.com/cosmos/evm/tests/integration/x/vm"
 )
 
-//func BenchmarkApplyTransaction(b *testing.B) {
-//	vm.BenchmarkApplyTransaction(b, CreateEvmd)
-//}
+func BenchmarkApplyTransaction(b *testing.B) {
+	vm.BenchmarkApplyTransaction(b, CreateEvmd)
+}
 
 func BenchmarkApplyTransactionWithLegacyTx(b *testing.B) {
 	vm.BenchmarkApplyTransactionWithLegacyTx(b, CreateEvmd)
@@ -18,9 +18,9 @@ func BenchmarkApplyTransactionWithDynamicFeeTx(b *testing.B) {
 	vm.BenchmarkApplyTransactionWithDynamicFeeTx(b, CreateEvmd)
 }
 
-//func BenchmarkApplyMessage(b *testing.B) {
-//	vm.BenchmarkApplyMessage(b, CreateEvmd)
-//}
+func BenchmarkApplyMessage(b *testing.B) {
+	vm.BenchmarkApplyMessage(b, CreateEvmd)
+}
 
 func BenchmarkApplyMessageWithLegacyTx(b *testing.B) {
 	vm.BenchmarkApplyMessageWithLegacyTx(b, CreateEvmd)
