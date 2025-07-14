@@ -4,10 +4,12 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/vm"
 
-	"github.com/cosmos/evm/evmd"
+	"github.com/cosmos/evm"
 	evmibctesting "github.com/cosmos/evm/testutil/ibc"
 	"github.com/cosmos/evm/testutil/tx"
+	evmtypes "github.com/cosmos/evm/x/vm/types"
 	transfertypes "github.com/cosmos/ibc-go/v10/modules/apps/transfer/types"
 	clienttypes "github.com/cosmos/ibc-go/v10/modules/core/02-client/types"
 
@@ -27,8 +29,8 @@ type testCase struct {
 }
 
 func (s *PrecompileTestSuite) TestTransferErrors() {
-	evmAppA := s.chainA.App.(*evmd.EVMD)
-	denom, err := evmAppA.StakingKeeper.BondDenom(s.chainA.GetContext())
+	evmAppA := s.chainA.App.(evm.EvmApp)
+	denom, err := evmAppA.GetStakingKeeper().BondDenom(s.chainA.GetContext())
 	s.Require().NoError(err)
 
 	timeoutHeight := clienttypes.NewHeight(1, 110)
@@ -99,7 +101,7 @@ func (s *PrecompileTestSuite) TestTransferErrors() {
 			)
 			s.Require().NoError(err)
 
-			_, _, _, err = s.chainA.SendEvmTx(
+			_, _, res, err := s.chainA.SendEvmTx(
 				s.chainA.SenderAccounts[0],
 				0,
 				s.chainAPrecompile.Address(),
@@ -108,7 +110,8 @@ func (s *PrecompileTestSuite) TestTransferErrors() {
 				0,
 			)
 			s.Require().Error(err)
-			s.Require().Contains(err.Error(), tc.expectErrSubstring)
+			s.Require().Contains(err.Error(), vm.ErrExecutionReverted.Error())
+			s.Require().Contains(evmtypes.NewExecErrorWithReason(res.Ret).Error(), tc.expectErrSubstring)
 		})
 	}
 }
@@ -117,8 +120,8 @@ func (s *PrecompileTestSuite) TestTransfer() {
 	path := evmibctesting.NewTransferPath(s.chainA, s.chainB)
 	path.Setup()
 
-	evmAppA := s.chainA.App.(*evmd.EVMD)
-	denom, err := evmAppA.StakingKeeper.BondDenom(s.chainA.GetContext())
+	evmAppA := s.chainA.App.(evm.EvmApp)
+	denom, err := evmAppA.GetStakingKeeper().BondDenom(s.chainA.GetContext())
 	s.Require().NoError(err)
 
 	amount := sdkmath.NewInt(5)
@@ -160,8 +163,8 @@ func (s *PrecompileTestSuite) TestTransfer() {
 
 	trace := transfertypes.NewHop(path.EndpointB.ChannelConfig.PortID, path.EndpointB.ChannelID)
 	chainBDenom := transfertypes.NewDenom(denom, trace)
-	evmAppB := s.chainB.App.(*evmd.EVMD)
-	balance := evmAppB.BankKeeper.GetBalance(
+	evmAppB := s.chainB.App.(evm.EvmApp)
+	balance := evmAppB.GetBankKeeper().GetBalance(
 		s.chainB.GetContext(),
 		s.chainB.SenderAccount.GetAddress(),
 		chainBDenom.IBCDenom(),
