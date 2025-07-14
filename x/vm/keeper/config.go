@@ -26,9 +26,11 @@ func (k *Keeper) EVMConfig(ctx sdk.Context, proposerAddress sdk.ConsAddress) (*s
 
 	baseFee := k.GetBaseFee(ctx)
 	return &statedb.EVMConfig{
-		Params:   params,
-		CoinBase: coinbase,
-		BaseFee:  baseFee,
+		Params:     params,
+		CoinBase:   coinbase,
+		BaseFee:    baseFee,
+		UseEVM1:    k.useEVM1,
+		EVM1Config: k.evm1Config,
 	}, nil
 }
 
@@ -55,5 +57,7 @@ func (k Keeper) VMConfig(ctx sdk.Context, _ core.Message, cfg *statedb.EVMConfig
 		Tracer:                  tracer,
 		NoBaseFee:               noBaseFee,
 		ExtraEips:               cfg.Params.EIPs(),
+		UseEVM1:                 cfg.UseEVM1,
+		EVM1Config:              cfg.EVM1Config,
 	}
 }
