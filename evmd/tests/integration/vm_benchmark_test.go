@@ -218,6 +218,7 @@ func BenchmarkApplyTransaction(b *testing.B) {
 		Create:         CreateEvmd,
 		EnableLondonHF: true,
 	}
+	suite.SetT(&testing.T{})
 	suite.SetupTest()
 
 	ethSigner := ethtypes.LatestSignerForChainID(evmtypes.GetEthChainConfig().ChainID)
@@ -250,6 +251,7 @@ func BenchmarkApplyMessage(b *testing.B) {
 		Create:         CreateEvmd,
 		EnableLondonHF: true,
 	}
+	suite.SetT(&testing.T{})
 	suite.SetupTest()
 
 	ethCfg := evmtypes.GetEthChainConfig()
