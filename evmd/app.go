@@ -3,6 +3,7 @@ package evmd
 import (
 	"encoding/json"
 	"fmt"
+	vm2 "github.com/ethereum/go-ethereum/core/vm"
 	"io"
 	"os"
 
@@ -433,7 +434,7 @@ func NewExampleApp(
 
 	app.GovKeeper = *govKeeper.SetHooks(
 		govtypes.NewMultiGovHooks(
-		// register the governance hooks
+			// register the governance hooks
 		),
 	)
 
@@ -470,6 +471,7 @@ func NewExampleApp(
 	tracer := cast.ToString(appOpts.Get(srvflags.EVMTracer))
 	useEVM1 := true
 	evm1Config := "/Users/chris/dev/evm/lib/libevmone.0.15.0.dylib"
+	vm2.InitEVM1EVM(evm1Config)
 
 	// NOTE: it's required to set up the EVM keeper before the ERC-20 keeper, because it is used in its instantiation.
 	app.EVMKeeper = evmkeeper.NewKeeper(

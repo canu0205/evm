@@ -18,6 +18,8 @@ coverage.txt
 yarn.lock
 benchmark_results/
 README_BENCHMARKING.md
+*.prof
+*.test
 
 # IDE
 .idea/
