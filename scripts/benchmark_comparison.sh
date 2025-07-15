@@ -52,7 +52,7 @@ run_benchmarks() {
 
     # Core EVM benchmarks - targeting evmd integration tests
     print_info "Running core EVM benchmarks..."
-    cd ./evmd && go test -bench=BenchmarkApply -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+    cd ./evmd && go test -run=^$ -bench=BenchmarkApply -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
         -run=^$ \
         -benchmem \
@@ -62,7 +62,7 @@ run_benchmarks() {
 
     # Token operation benchmarks
     print_info "Running token operation benchmarks..."
-    cd ./evmd && go test -bench=BenchmarkToken -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+    cd ./evmd && go test -run=^$ -bench=BenchmarkToken -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
         -run=^$ \
         -benchmem \
@@ -72,7 +72,7 @@ run_benchmarks() {
 
     # Message call benchmarks
     print_info "Running message call benchmarks..."
-    cd ./evmd && go test -bench=BenchmarkMessage -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+    cd ./evmd && go test -run=^$ -bench=BenchmarkMessage -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
         -run=^$ \
         -benchmem \
@@ -82,7 +82,7 @@ run_benchmarks() {
 
     # EmitLogs benchmarks
     print_info "Running emit logs benchmarks..."
-    cd ./evmd && go test -bench=BenchmarkEmitLogs -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+    cd ./evmd && go test -run=^$ -bench=BenchmarkEmitLogs -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
         -run=^$ \
         -benchmem \
