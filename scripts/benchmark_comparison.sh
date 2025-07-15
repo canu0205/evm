@@ -9,8 +9,8 @@ set -e
 BENCHMARK_RESULTS_DIR="benchmark_results"
 ORIGINAL_BRANCH="test/original"
 EVMONE_BRANCH="poc/evmone"
-BENCHMARK_DURATION="30s"
-BENCHMARK_COUNT=5
+BENCHMARK_DURATION="2s"
+BENCHMARK_COUNT=1
 
 # Create results directory
 mkdir -p $BENCHMARK_RESULTS_DIR
