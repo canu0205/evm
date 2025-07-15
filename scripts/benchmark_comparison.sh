@@ -8,7 +8,7 @@ set -e
 # Configuration
 BENCHMARK_RESULTS_DIR="benchmark_results"
 ORIGINAL_BRANCH="test/original"
-EVMONE_BRANCH="poc/evm1"
+EVMONE_BRANCH="poc/evmone"
 BENCHMARK_DURATION="2s"
 BENCHMARK_COUNT=1
 
