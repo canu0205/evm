@@ -138,24 +138,24 @@ analyze_results() {
 
     if command -v benchcmp >/dev/null 2>&1; then
         print_info "Generating comparison report with benchcmp..."
-        benchcmp "$BENCHMARK_RESULTS_DIR/original_results.txt" "$BENCHMARK_RESULTS_DIR/evmone_results.txt" > "$BENCHMARK_RESULTS_DIR/comparison_report.txt"
+        benchcmp "../$BENCHMARK_RESULTS_DIR/original_results.txt" "../$BENCHMARK_RESULTS_DIR/evmone_results.txt" > "../$BENCHMARK_RESULTS_DIR/comparison_report.txt"
 
         echo -e "${GREEN}Comparison Report:${NC}"
-        cat "$BENCHMARK_RESULTS_DIR/comparison_report.txt"
+        cat "../$BENCHMARK_RESULTS_DIR/comparison_report.txt"
     else
         print_info "Installing benchcmp for detailed analysis..."
         go install golang.org/x/tools/cmd/benchcmp@latest
         if command -v benchcmp >/dev/null 2>&1; then
-            benchcmp "$BENCHMARK_RESULTS_DIR/original_results.txt" "$BENCHMARK_RESULTS_DIR/evmone_results.txt" > "$BENCHMARK_RESULTS_DIR/comparison_report.txt"
+            benchcmp "../$BENCHMARK_RESULTS_DIR/original_results.txt" "../$BENCHMARK_RESULTS_DIR/evmone_results.txt" > "../$BENCHMARK_RESULTS_DIR/comparison_report.txt"
             echo -e "${GREEN}Comparison Report:${NC}"
-            cat "$BENCHMARK_RESULTS_DIR/comparison_report.txt"
+            cat "../$BENCHMARK_RESULTS_DIR/comparison_report.txt"
         else
             print_error "Could not install benchcmp. Please install manually: go install golang.org/x/tools/cmd/benchcmp@latest"
         fi
     fi
 
     # Generate summary
-    cat > "$BENCHMARK_RESULTS_DIR/summary.md" << EOF
+    cat > "../$BENCHMARK_RESULTS_DIR/summary.md" << EOF
 # EVM Performance Benchmark Results
 
 ## Test Configuration
@@ -169,18 +169,18 @@ analyze_results() {
 
 ### Original Implementation
 \`\`\`
-$(cat "$BENCHMARK_RESULTS_DIR/original_results.txt")
+$(cat "../$BENCHMARK_RESULTS_DIR/original_results.txt")
 \`\`\`
 
 ### Evmone Implementation
 \`\`\`
-$(cat "$BENCHMARK_RESULTS_DIR/evmone_results.txt")
+$(cat "../$BENCHMARK_RESULTS_DIR/evmone_results.txt")
 \`\`\`
 
-$(if [ -f "$BENCHMARK_RESULTS_DIR/comparison_report.txt" ]; then
+$(if [ -f "../$BENCHMARK_RESULTS_DIR/comparison_report.txt" ]; then
     echo "## Performance Comparison"
     echo "\`\`\`"
-    cat "$BENCHMARK_RESULTS_DIR/comparison_report.txt"
+    cat "../$BENCHMARK_RESULTS_DIR/comparison_report.txt"
     echo "\`\`\`"
 fi)
 
@@ -200,7 +200,7 @@ fi)
 - Memory usage improvements are shown as negative percentages
 EOF
 
-    print_success "Results saved to $BENCHMARK_RESULTS_DIR/"
+    print_success "Results saved to ../$BENCHMARK_RESULTS_DIR/"
 }
 
 show_summary() {
@@ -208,18 +208,18 @@ show_summary() {
     echo -e "${GREEN}  Benchmark Comparison Complete!${NC}"
     echo -e "${GREEN}========================================${NC}"
     echo ""
-    echo -e "${BLUE}Results Location:${NC} $BENCHMARK_RESULTS_DIR/"
-    echo -e "${BLUE}Summary Report:${NC} $BENCHMARK_RESULTS_DIR/summary.md"
+    echo -e "${BLUE}Results Location:${NC} ../$BENCHMARK_RESULTS_DIR/"
+    echo -e "${BLUE}Summary Report:${NC} ../$BENCHMARK_RESULTS_DIR/summary.md"
     echo -e "${BLUE}Raw Results:${NC}"
-    echo -e "  - Original: $BENCHMARK_RESULTS_DIR/original_results.txt"
-    echo -e "  - Evmone: $BENCHMARK_RESULTS_DIR/evmone_results.txt"
-    if [ -f "$BENCHMARK_RESULTS_DIR/comparison_report.txt" ]; then
-        echo -e "${BLUE}Comparison:${NC} $BENCHMARK_RESULTS_DIR/comparison_report.txt"
+    echo -e "  - Original: ../$BENCHMARK_RESULTS_DIR/original_results.txt"
+    echo -e "  - Evmone: ../$BENCHMARK_RESULTS_DIR/evmone_results.txt"
+    if [ -f "../$BENCHMARK_RESULTS_DIR/comparison_report.txt" ]; then
+        echo -e "${BLUE}Comparison:${NC} ../$BENCHMARK_RESULTS_DIR/comparison_report.txt"
     fi
     echo ""
     echo -e "${YELLOW}Quick View:${NC}"
-    if [ -f "$BENCHMARK_RESULTS_DIR/comparison_report.txt" ]; then
-        head -20 "$BENCHMARK_RESULTS_DIR/comparison_report.txt"
+    if [ -f "../$BENCHMARK_RESULTS_DIR/comparison_report.txt" ]; then
+        head -20 "../$BENCHMARK_RESULTS_DIR/comparison_report.txt"
     else
         echo "Run 'go install golang.org/x/tools/cmd/benchcmp@latest' for detailed comparison"
     fi
