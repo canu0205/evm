@@ -8,7 +8,7 @@ set -e
 # Configuration
 BENCHMARK_RESULTS_DIR="benchmark_results"
 ORIGINAL_BRANCH="test/original"
-EVMONE_BRANCH="poc/evm1"
+EVMONE_BRANCH="poc/evmone"
 BENCHMARK_DURATION="30s"
 BENCHMARK_COUNT=5
 
@@ -122,7 +122,7 @@ benchmark_original() {
     print_info "Building original version..."
     make build >/dev/null 2>&1
 
-    run_benchmarks "$ORIGINAL_BRANCH" "$BENCHMARK_RESULTS_DIR/original_results.txt"
+    run_benchmarks "$ORIGINAL_BRANCH" "../$BENCHMARK_RESULTS_DIR/original_results.txt"
     print_success "Original benchmarks completed"
 }
 
@@ -133,7 +133,7 @@ benchmark_evmone() {
     print_info "Building evmone version..."
     make build >/dev/null 2>&1
 
-    run_benchmarks "$EVMONE_BRANCH" "$BENCHMARK_RESULTS_DIR/evmone_results.txt"
+    run_benchmarks "$EVMONE_BRANCH" "../$BENCHMARK_RESULTS_DIR/evmone_results.txt"
     print_success "Evmone benchmarks completed"
 }
 
