@@ -119,6 +119,7 @@ benchmark_original() {
     make build >/dev/null 2>&1
 
     run_benchmarks "$ORIGINAL_BRANCH" "../$BENCHMARK_RESULTS_DIR/original_results.txt"
+    cd ..
     print_success "Original benchmarks completed"
 }
 
