@@ -59,7 +59,6 @@ run_benchmarks() {
     go test -run=^$ -bench=BenchmarkApply -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
         -benchmem \
-#        -cpu=1,2,4 \
         -tags=test \
         > "$results_file" 2>&1
 
@@ -68,7 +67,6 @@ run_benchmarks() {
     go test -run=^$ -bench=BenchmarkToken -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
         -benchmem \
-#        -cpu=1,2,4 \
         -tags=test \
         >> "$results_file" 2>&1
 
@@ -77,7 +75,6 @@ run_benchmarks() {
     go test -run=^$ -bench=BenchmarkMessage -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
         -benchmem \
-#        -cpu=1,2,4 \
         -tags=test \
         >> "$results_file" 2>&1
 
@@ -86,7 +83,6 @@ run_benchmarks() {
     go test -run=^$ -bench=BenchmarkEmitLogs -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
         -benchmem \
-#        -cpu=1,2,4 \
         -tags=test \
         >> "$results_file" 2>&1
 }
