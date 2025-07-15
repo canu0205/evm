@@ -71,12 +71,12 @@ run_benchmarks() {
         >> "$results_file" 2>&1
 
     # Message call benchmarks
-    print_info "Running message call benchmarks..."
-    go test -run=^$ -bench=BenchmarkMessage -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
-        ./tests/integration/ \
-        -benchmem \
-        -tags=test \
-        >> "$results_file" 2>&1
+#    print_info "Running message call benchmarks..."
+#    go test -run=^$ -bench=BenchmarkMessage -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+#        ./tests/integration/ \
+#        -benchmem \
+#        -tags=test \
+#        >> "$results_file" 2>&1
 
     # EmitLogs benchmarks
     print_info "Running emit logs benchmarks..."
