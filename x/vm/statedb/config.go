@@ -44,4 +44,6 @@ type EVMConfig struct {
 	CoinBase                common.Address
 	BaseFee                 *big.Int
 	EnablePreimageRecording bool
+	UseEVM1                 bool
+	EVM1Config              string
 }

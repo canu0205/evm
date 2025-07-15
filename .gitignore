@@ -16,6 +16,8 @@
 # Testing
 coverage.txt
 yarn.lock
+benchmark_results/
+README_BENCHMARKING.md
 
 # IDE
 .idea/

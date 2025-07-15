@@ -30,7 +30,6 @@ import (
 	feemarketkeeper "github.com/cosmos/evm/x/feemarket/keeper"
 	feemarkettypes "github.com/cosmos/evm/x/feemarket/types"
 	ibccallbackskeeper "github.com/cosmos/evm/x/ibc/callbacks/keeper"
-
 	// NOTE: override ICS20 keeper to support IBC transfers of ERC20 tokens
 	"github.com/cosmos/evm/x/ibc/transfer"
 	transferkeeper "github.com/cosmos/evm/x/ibc/transfer/keeper"
@@ -469,6 +468,8 @@ func NewExampleApp(
 
 	// Set up EVM keeper
 	tracer := cast.ToString(appOpts.Get(srvflags.EVMTracer))
+	useEVM1 := true
+	evm1Config := "/Users/chris/dev/evm/lib/libevmone.0.15.0.dylib"
 
 	// NOTE: it's required to set up the EVM keeper before the ERC-20 keeper, because it is used in its instantiation.
 	app.EVMKeeper = evmkeeper.NewKeeper(
@@ -481,6 +482,8 @@ func NewExampleApp(
 		app.FeeMarketKeeper,
 		&app.Erc20Keeper,
 		tracer,
+		useEVM1,
+		evm1Config,
 	)
 
 	app.Erc20Keeper = erc20keeper.NewKeeper(
