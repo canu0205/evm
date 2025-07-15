@@ -246,7 +246,7 @@ main() {
     backup_current_state
 
     # Run benchmarks
-#    benchmark_original
+    benchmark_original
     benchmark_evmone
 
     # Restore original state
