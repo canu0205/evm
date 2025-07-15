@@ -49,44 +49,44 @@ run_benchmarks() {
     local results_file=$2
 
     print_step "Running benchmarks on branch: $branch_name"
-
+    
+    # Change to evmd directory if not already there
+    if [[ $(basename "$PWD") != "evmd" ]]; then
+        cd ./evmd
+    fi
     # Core EVM benchmarks - targeting evmd integration tests
     print_info "Running core EVM benchmarks..."
-    cd ./evmd && go test -run=^$ -bench=BenchmarkApply -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+    go test -run=^$ -bench=BenchmarkApply -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
-        -run=^$ \
         -benchmem \
-        -cpu=1,2,4 \
+#        -cpu=1,2,4 \
         -tags=test \
         > "$results_file" 2>&1
 
     # Token operation benchmarks
     print_info "Running token operation benchmarks..."
-    cd ./evmd && go test -run=^$ -bench=BenchmarkToken -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+    go test -run=^$ -bench=BenchmarkToken -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
-        -run=^$ \
         -benchmem \
-        -cpu=1,2,4 \
+#        -cpu=1,2,4 \
         -tags=test \
         >> "$results_file" 2>&1
 
     # Message call benchmarks
     print_info "Running message call benchmarks..."
-    cd ./evmd && go test -run=^$ -bench=BenchmarkMessage -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+    go test -run=^$ -bench=BenchmarkMessage -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
-        -run=^$ \
         -benchmem \
-        -cpu=1,2,4 \
+#        -cpu=1,2,4 \
         -tags=test \
         >> "$results_file" 2>&1
 
     # EmitLogs benchmarks
     print_info "Running emit logs benchmarks..."
-    cd ./evmd && go test -run=^$ -bench=BenchmarkEmitLogs -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
+    go test -run=^$ -bench=BenchmarkEmitLogs -benchtime=$BENCHMARK_DURATION -count=$BENCHMARK_COUNT \
         ./tests/integration/ \
-        -run=^$ \
         -benchmem \
-        -cpu=1,2,4 \
+#        -cpu=1,2,4 \
         -tags=test \
         >> "$results_file" 2>&1
 }
