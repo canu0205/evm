@@ -115,13 +115,13 @@ func (md MonoDecorator) AnteHandle(ctx sdk.Context, tx sdk.Tx, simulate bool, ne
 		}
 
 		// 4. validate msg contents
-		if err := ValidateMsg(
-			decUtils.EvmParams,
-			txData,
-			ethMsg.GetFrom(),
-		); err != nil {
-			return ctx, err
-		}
+		//if err := ValidateMsg(
+		//	decUtils.EvmParams,
+		//	txData,
+		//	ethMsg.GetFrom(),
+		//); err != nil {
+		//	return ctx, err
+		//}
 
 		// 5. signature verification
 		if err := SignatureVerification(
